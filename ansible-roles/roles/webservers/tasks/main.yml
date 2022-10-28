@@ -14,6 +14,9 @@
 - name: See directory contents
   command: ls -la {{ path_to_app }}
   register: dir_contents
+  args:
+    warn: no
+  changed_when: false
 
 - name: Debug directory contents
   debug:
