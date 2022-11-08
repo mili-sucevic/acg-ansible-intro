@@ -9,8 +9,8 @@
   roles:
     - name: common
 
-  post_tasks:
-    - name: Reboot
-      reboot:
-      become: true
+      #  post_tasks:
+      #- name: Reboot
+      #reboot:
+      #become: true
 

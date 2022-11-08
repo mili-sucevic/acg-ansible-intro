@@ -20,7 +20,7 @@
     key: "{{ lookup('file', '{{ item.key }}')}}"
     state: "{{ item.userstate }}"
   with_items: 
-  - { username: 'ansible', key: '/etc/ansible/roles/common/files/ssh-keys/ansible.pub', userstate: 'present'}
+  - { username: 'ansible', key: '/etc/ansible/roles/common/files/ssh-keys/ansible-course-key-pair.pub', userstate: 'present'}
 
 - name: Allow admin users to sudo without a password
   lineinfile:

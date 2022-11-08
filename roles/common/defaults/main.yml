@@ -2,4 +2,4 @@
 users:
   - username: "ansible"
     groups:
-    - ansible-group
+    - admin
