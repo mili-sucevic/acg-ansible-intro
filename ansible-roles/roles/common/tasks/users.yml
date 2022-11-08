@@ -1,0 +1,34 @@
+---
+- name: Ensure groups exist
+  group:
+    name:  "{{ item }}"
+    state: present
+  with_items:
+    - "{{ users | map(attribute='groups') | flatten | unique }}"
+    - "{{ additional_users | map(attribute='groups') | flatten | unique }}"
+
+- name: Create user accounts
+  user:
+    name: "{{ item.username }}"
+    groups: "{{ item.groups }}"
+    shell: "/bin/bash"
+  with_items: 
+  - "{{ users }}"
+  - "{{ additional_users }}"
+
+- name: "Add authorized keys"
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ lookup('file', 'files/'+ item.username + '.pub') }}"
+  with_items: 
+  - "{{ users }}"
+  - "{{ additional_users }}"
+
+- name: Allow admin users to sudo without a password
+  lineinfile:
+    dest: "/etc/sudoers.d/admin" # path: in version 2.3
+    state: "present"
+    regexp: "^%admin"
+    line: "%admin ALL=(ALL) NOPASSWD: ALL"
+    create: true
+

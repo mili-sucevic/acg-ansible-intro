@@ -1,0 +1,7 @@
+---
+users:
+  - username: "ansible"
+    groups:
+    - ansible-group
+additional_users: []
+
